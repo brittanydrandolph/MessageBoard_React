@@ -1,0 +1,78 @@
+/* .App {
+  text-align: center;
+} */
+
+h1{
+  text-align: center;
+}
+
+.comment{
+  margin: 0px auto;
+  width: 55%;
+  margin: 0px auto;
+}
+.comment-name {
+  padding: 5px;
+  border: 1px solid black;
+  box-shadow: 2px 2px 3px #eee;
+}
+
+.comment-textarea {
+  padding: 5px;
+  border: 1px solid black;
+  box-shadow: 3px 3px 4px #eee;
+  width: 98%;
+  margin-top: 5px;
+  height: 50px;
+}
+
+.comment button{
+  background-color: #004b8d;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  margin-left: 85%;
+  box-shadow: 2px 2px 3px #eee;
+  cursor: pointer;
+}
+
+.comment button:hover {
+  background-color: #0074d9;
+}
+
+.message {
+  margin-left: 43%;
+}
+
+.message button{
+    background-color: #4b8d00;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 3px #eee;
+    cursor: pointer;
+    margin-left: 46%;
+  }
+
+.message button:hover {
+  background-color: #66c000;
+}
+
+.message-textarea {
+  padding: 5px;
+  border: 1px solid black;
+  box-shadow: 3px 3px 4px #eee;
+  width: 40%;
+  margin-top: 5px;
+  height: 20px;
+  display: inline-block;
+}
+.message-name {
+  padding: 5px;
+  border: 1px solid black;
+  box-shadow: 2px 2px 3px #eee;
+  margin-top: 5px;
+  margin-right: 5px;
+  vertical-align: top;
+  height: 20px;
+}
