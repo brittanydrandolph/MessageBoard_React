@@ -25,11 +25,12 @@ const Message = (props) => {
         })
     };
 
-    //When the submit button is clicked, pass the data to the function passed down
-    //from App.js that will save the data to the App.js state and rerender the page
-    //to show the changes
     const saveMessage = () => {
         onSubmit(messageState);
+        setMessageState({
+            name: '',
+            message: '',
+        })
     };
 
     return (

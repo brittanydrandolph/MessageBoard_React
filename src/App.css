@@ -76,3 +76,21 @@ h1{
   vertical-align: top;
   height: 20px;
 }
+
+.messages-shown {
+    border: 1px solid #4b8d00;
+    padding: 8px;
+    width: 32%;
+    box-Shadow: 2px 2px 3px #66c000;
+    font-Size: 11px;
+    margin-Left: 43%;
+}
+
+.showCommentStyle {
+  border: 1px solid #004b8d;
+  padding: 15px;
+  width: 45%;
+  margin: 10px auto;
+  box-Shadow: 2px 2px 3px #0074d9;
+  font-Size: 11px;
+}
