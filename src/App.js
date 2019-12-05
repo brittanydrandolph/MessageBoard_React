@@ -8,29 +8,29 @@ class App extends Component {
     super();
     this.state = {
       commentId: 1,
-      messageId: 1,
+      // messageId: 1,
       comments: [
         {
-          commentId: 1, 
+          commentId: 0, 
           comment: "Honestly, am I the only person who’s ever bothered to read Hogwarts, A History?", 
           name: "Hermonie Granger (hard-coded)",
           messages:[
             {
-              commentId: 1,
-              messageId: 1, 
+              commentId: 0,
+              // messageId: 0, 
               message: "Hermonie... you have that book memorized...", 
               name: "Ron Weasley (hard-coded)",
             },
           ]
         },
         {
-          commentId: 2, 
+          commentId: 1, 
           comment: "Quidditch practice, tomorrow night. 7PM. Rain or shine.", 
           name: "Harry Potter (hard-coded)",
           messages:[
             {
-              commentId: 2,
-              messageId: 3, 
+              commentId: 1,
+              // messageId: 1, 
               message: "Why practice, Potter? Gryffindor has no chance of winning the Quidditch Cup this year.", 
               name: "Draco Malfoy(hard-coded)",
             },
@@ -52,14 +52,45 @@ class App extends Component {
     });
   };
 
-  onMessageSubmit(newMessage){
-    this.setState({messageId: this.state.messageId++})
-    newMessage.commentId = this.state.commentId;
+  onMessageSubmit(newMessage, commentID){
+    console.log("newMessage.Commentid: " + commentID)
+    newMessage.commentId = commentID;
     console.log("[new message]", newMessage);
-    this.setState({
-      ...this.state, 
-      messages: [...this.state.comments.message, newMessage]
-    });
+    
+    for(var i = 0; i < this.state.comments.length; i++)
+    {
+      console.log("made it into for loop")
+      if(this.state.comments[i].commentId === newMessage.commentId)
+      {
+        console.log("found a match")
+        //THIS IS WHERE IT'S BREAKING
+
+        //ATTEMPT 1:
+        //This works for messages posted to hard-coded comments, but not dynamic comments
+        //Error message with this strategy: TypeError: Cannot read property 'push' of undefined
+        //I'm thinking it doesn't know that messages is embedded in comments? 
+        //Also, I'm not sure that this method is best practice.
+        this.setState({
+          ...this.state.comments[i].messages.push(newMessage)
+        });
+
+        //ATTEMPT 2:
+        //Error message with the strategy: TypeError: Cannot convert undefined or null to object. 
+        //But I can see the newMessage object being console logged from line 58, so I'm not sure
+        //why it's saying the object is undefined or null?
+        // this.setState({
+        //   ...this.state.comments[i].messages,
+        //   message: [...this.state.comments[i].messages.message, newMessage]
+        // });
+
+        const update = [this.state.comments[i].messages]
+        console.log(update)
+        break;
+      }
+      else{
+        console.log("no match")
+      }
+    }
   };
 
 render() {
@@ -75,6 +106,7 @@ render() {
         name={comment.name}
         comment={comment.comment}
         key={comment.commentId}
+        commentId = {comment.commentId}
         data = {comment} />
         )})}
     </div>

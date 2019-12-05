@@ -6,12 +6,12 @@ const Message = (props) => {
     //Initilize an empty messageState and two functions to set it up
     const [ messageState, setMessageState] = useState ({
         name: '',
-        message: ''
+        message: '',
     });
 
     //Update the name string in messageState on change to the input
     const onNameChange = (event) => {
-        console.log("[onNameChange]", event.target.value);
+        //console.log("[onNameChange]", event.target.value);
         setMessageState({
             ...messageState, name: event.target.value
         })
@@ -19,17 +19,21 @@ const Message = (props) => {
 
     //Update the message string in messageState on chnage to the input
     const onMessageChange = (event) => {
-        console.log("[onMessageChange]", event.target.value);
+        //console.log("[onMessageChange]", event.target.value);
         setMessageState({
             ...messageState, message: event.target.value
         })
     };
 
     const saveMessage = () => {
-        onSubmit(messageState);
+        console.log("MessageState is:" + messageState.name, messageState.message)
+        console.log("CommentId for message is: " + props.commentId)
+        let commentID = props.commentId;
+        onSubmit(messageState, commentID);
+        console.log("Message submitted successfully")
         setMessageState({
             name: '',
-            message: '',
+            message: ''
         })
     };
 
@@ -51,7 +55,9 @@ const Message = (props) => {
             />
             
             <button 
-            type="button"
+            // type="button"
+            type="hidden"
+            value={props.commentId}
             onClick={() => saveMessage()}> Submit message</button>
         </div>
     );
