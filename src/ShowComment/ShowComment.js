@@ -17,12 +17,13 @@ const ShowComment = (props) => {
                         <ShowMessage 
                         message={message.message} 
                         name={message.name}
-                        key={index} 
+                        messageId = {message.messageId}
+                        key={index}
                         />
                     )
                 })}
             </div>
-            <Message onSubmit={props.onSubmit} commentId={props.commentId}/>
+            <Message onSubmit={props.onSubmit} data={props.data}/>
         </div>
     )
 };

@@ -5,7 +5,7 @@ const Comment = (props) => {
 
   const [ commentState, setCommentState ] = useState({
     name: '',
-    comment: ''
+    comment: '',
   });
 
   // update the name string in commentState on change to the input

@@ -7,8 +7,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      commentId: 1,
-      // messageId: 1,
+      commentId: 0,
+      messageId: 0,
       comments: [
         {
           commentId: 0, 
@@ -16,26 +16,13 @@ class App extends Component {
           name: "Hermonie Granger (hard-coded)",
           messages:[
             {
-              commentId: 0,
-              // messageId: 0, 
+              commentId: 0, 
+              messageId: 0,
               message: "Hermonie... you have that book memorized...", 
               name: "Ron Weasley (hard-coded)",
             },
           ]
         },
-        {
-          commentId: 1, 
-          comment: "Quidditch practice, tomorrow night. 7PM. Rain or shine.", 
-          name: "Harry Potter (hard-coded)",
-          messages:[
-            {
-              commentId: 1,
-              // messageId: 1, 
-              message: "Why practice, Potter? Gryffindor has no chance of winning the Quidditch Cup this year.", 
-              name: "Draco Malfoy(hard-coded)",
-            },
-          ]
-        }
       ]
     };
     this.onCommentSubmit = this.onCommentSubmit.bind(this);
@@ -43,7 +30,13 @@ class App extends Component {
   };
 
   onCommentSubmit(newComment) {
-    this.setState({commentId: this.state.commentId++ })
+    newComment.messages = this.state.comments.messages = [];
+
+    this.setState({
+      commentId: this.state.commentId++,  
+      messageId: this.state.messageId = 0
+    })
+    
     newComment.commentId = this.state.commentId;
     console.log("[new comment]", newComment);
     this.setState({
@@ -52,39 +45,34 @@ class App extends Component {
     });
   };
 
-  onMessageSubmit(newMessage, commentID){
-    console.log("newMessage.Commentid: " + commentID)
-    newMessage.commentId = commentID;
-    console.log("[new message]", newMessage);
-    
+  onMessageSubmit(newMessage, comment){
+    //console.log("newMessage.Commentid: " + commentID)
+    newMessage.commentId = comment.commentId;
+    this.setState({
+      messageId: this.state.messageId++  
+    })
+    newMessage.messageId = this.state.messageId;
+    //console.log("[new message]", newMessage);
+
     for(var i = 0; i < this.state.comments.length; i++)
     {
       console.log("made it into for loop")
       if(this.state.comments[i].commentId === newMessage.commentId)
       {
         console.log("found a match")
-        //THIS IS WHERE IT'S BREAKING
-
-        //ATTEMPT 1:
-        //This works for messages posted to hard-coded comments, but not dynamic comments
-        //Error message with this strategy: TypeError: Cannot read property 'push' of undefined
-        //I'm thinking it doesn't know that messages is embedded in comments? 
-        //Also, I'm not sure that this method is best practice.
-        this.setState({
-          ...this.state.comments[i].messages.push(newMessage)
-        });
-
-        //ATTEMPT 2:
-        //Error message with the strategy: TypeError: Cannot convert undefined or null to object. 
-        //But I can see the newMessage object being console logged from line 58, so I'm not sure
-        //why it's saying the object is undefined or null?
+        //Attempt 1: WORKS
         // this.setState({
-        //   ...this.state.comments[i].messages,
-        //   message: [...this.state.comments[i].messages.message, newMessage]
+        //   ...this.state.comments[i].messages.push(newMessage)
         // });
 
-        const update = [this.state.comments[i].messages]
-        console.log(update)
+        //Attempt 2: WORKS
+        this.setState ({...this.state.comments.messages = [] })
+        comment.messages.push(newMessage)
+        this.setState({
+          ...this.state.comments[i],
+          messages: [...this.state.comments[i].messages, newMessage]
+        });
+        console.log("COMMENT", comment)
         break;
       }
       else{
@@ -94,12 +82,13 @@ class App extends Component {
   };
 
 render() {
-
-
   return (
     <div className="App">
       <h1>Message Board</h1>
-    <Comment onSubmit={this.onCommentSubmit}/>
+    <Comment 
+    onSubmit={this.onCommentSubmit}
+    />
+
     {this.state.comments && this.state.comments.map(comment => {
       return (
         <ShowComment onSubmit={this.onMessageSubmit}

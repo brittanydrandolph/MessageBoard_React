@@ -4,7 +4,7 @@ const Message = (props) => {
     const { onSubmit } = props;
 
     //Initilize an empty messageState and two functions to set it up
-    const [ messageState, setMessageState] = useState ({
+    const [messageState, setMessageState] = useState ({
         name: '',
         message: '',
     });
@@ -17,7 +17,7 @@ const Message = (props) => {
         })
     };
 
-    //Update the message string in messageState on chnage to the input
+    //Update the message string in messageState on change to the input
     const onMessageChange = (event) => {
         //console.log("[onMessageChange]", event.target.value);
         setMessageState({
@@ -26,14 +26,12 @@ const Message = (props) => {
     };
 
     const saveMessage = () => {
-        console.log("MessageState is:" + messageState.name, messageState.message)
-        console.log("CommentId for message is: " + props.commentId)
-        let commentID = props.commentId;
-        onSubmit(messageState, commentID);
+        let comment = props.data;
+        onSubmit(messageState, comment);
         console.log("Message submitted successfully")
         setMessageState({
+            message: '',
             name: '',
-            message: ''
         })
     };
 
@@ -50,14 +48,14 @@ const Message = (props) => {
             <textarea
             className="message-textarea"
             placeholder="Type your message reply here..."
-            rvalue={messageState.message}
+            value={messageState.message}
             onChange={onMessageChange}
             />
             
             <button 
             // type="button"
             type="hidden"
-            value={props.commentId}
+            value={props.data.commentId}
             onClick={() => saveMessage()}> Submit message</button>
         </div>
     );
