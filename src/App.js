@@ -8,7 +8,6 @@ class App extends Component {
     super();
     this.state = {
       commentId: 0,
-      messageId: 0,
       comments: [
         {
           commentId: 0, 
@@ -17,7 +16,6 @@ class App extends Component {
           messages:[
             {
               commentId: 0, 
-              messageId: 0,
               message: "Hermonie... you have that book memorized...", 
               name: "Ron Weasley (hard-coded)",
             },
@@ -34,9 +32,8 @@ class App extends Component {
 
     this.setState({
       commentId: this.state.commentId++,  
-      messageId: this.state.messageId = 0
     })
-    
+
     newComment.commentId = this.state.commentId;
     console.log("[new comment]", newComment);
     this.setState({
@@ -48,10 +45,6 @@ class App extends Component {
   onMessageSubmit(newMessage, comment){
     //console.log("newMessage.Commentid: " + commentID)
     newMessage.commentId = comment.commentId;
-    this.setState({
-      messageId: this.state.messageId++  
-    })
-    newMessage.messageId = this.state.messageId;
     //console.log("[new message]", newMessage);
 
     for(var i = 0; i < this.state.comments.length; i++)

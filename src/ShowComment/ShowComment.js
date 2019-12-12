@@ -17,7 +17,6 @@ const ShowComment = (props) => {
                         <ShowMessage 
                         message={message.message} 
                         name={message.name}
-                        messageId = {message.messageId}
                         key={index}
                         />
                     )
